@@ -1,8 +1,5 @@
 version : '3'
 
-volumes:
-  mariadb_dev: {}
-
 services:
   db:
     container_name: 'postgres'

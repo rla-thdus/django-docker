@@ -1,0 +1,26 @@
+version : '3'
+
+volumes:
+  mariadb_dev: {}
+
+services:
+  db:
+    container_name: 'postgres'
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  django:
+    container_name: 'django-service'
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html/
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
